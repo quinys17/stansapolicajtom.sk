@@ -8,51 +8,97 @@
 </head>
 <body>
 
-    <!-- Hero sekcia s ground.png -->
+    <!-- Hero sekcia -->
     <section class="hero">
         <div class="overlay"></div>
         <div class="hero-content">
             <h1>Prečo sa stať policajtom?</h1>
-            <p>Pretože byť súčasťou Policajného zboru nie je len o uniforme a znaku na hrudi. Je to o každodennom rozhodnutí stáť na strane spravodlivosti, chrániť tých, ktorí to potrebujú, a byť oporou spoločnosti v tých najťažších chvíľach. Ak chceš, aby tvoja práca mala zmysel, ak túžiš po tom byť súčasťou zmeny k lepšiemu – toto je tvoje miesto.</p>
+            <p>Pretože byť súčasťou Policajného zboru nie je len o uniforme a znaku na hrudi...</p>
             <a href="#formular" class="button">Pridať sa</a>
         </div>
     </section>
 
-    <!-- Sekcia s tromi obrázkami -->
+    <!-- Služby -->
     <section class="services">
         <div class="service">
             <img src="poriadkova.png" alt="Poriadková polícia">
             <h2>Poriadková polícia</h2>
-            <p>Policajtov služby poriadkovej polície Policajného zboru vidíš asi najčastejšie. Niekoho na ulici prepadnú? Obeť alebo svedok zavolá na číslo 158. A kto príde zasiahnuť? Policajti služby poriadkovej polície.  Sú prví tam, kde je potrebné okamžite chrániť život, zdravie alebo majetok.Robia toho ale omnoho viac. Odhaľujú trestné činy aj priestupky. Niektoré veci aj sami vyšetrujú. Primárne dohliadajú na dodržiavanie verejného poriadku. A hoci je bezpečnosť na cestách prioritou služby dopravnej polície, keď je treba, pomôžu aj v cestnej premávke.</p>
+            <p>Popis...</p>
         </div>
         <div class="service">
             <img src="dopravna.png" alt="Dopravná polícia">
             <h2>Dopravná polícia</h2>
-            <p>Takmer každý z nás sa denne pohybuje po chodníkoch alebo cestách. Niekto ako chodec, iný ako cestujúci alebo vodič. Stávame sa tak účastníkmi cestnej premávky. No zároveň sme na cestách veľmi zraniteľní. Stret s vozidlom má často fatálne následky. Dopravní policajti preto dohliadajú na bezpečnosť a plynulosť cestnej premávky. Keď je to potrebné, sami ju riadia. Objasňujú dopravné nehody, riešia priestupky. V autoškolách skúšajú budúcich vodičov, či sú na jazdu skutočne pripravení.
-</p>
+            <p>Popis...</p>
         </div>
         <div class="service">
             <img src="krimi.png" alt="Kriminálna polícia">
             <h2>Kriminálna polícia</h2>
-            <p>Kriminalisti odhaľujú a objasňujú trestné činy. Využívajú pri tom rôzne kriminalistické techniky, ktoré sa môžeš aj Ty naučiť. Tí skúsenejší objasňujú organizovanú kriminalitu, ktorá je pre spoločnosť mimoriadne nebezpečná. Vraždy, lúpeže, vydierania, požiare, výbuchy. Extrémizmus, rasizmus, krádeže alebo vlámania. Ako kriminalista sa môžeš popasovať aj s ekonomickou trestnou činnosťou. To všetko rieši „kriminálka". Kriminálna polícia zisťuje totožnosť živých, aj mŕtvych, vrátane kostrových nálezov.
-</p>
+            <p>Popis...</p>
         </div>
     </section>
 
-    <!-- Formulárová sekcia s jolop.png -->
+    <!-- Formulár -->
     <section class="cta" id="formular">
         <div class="overlay"></div>
         <div class="cta-content">
             <h2>Stať sa policajtom ťa delí už len toto a ostatné nechaj na nás</h2>
-            <form>
-                <input type="text" placeholder="Meno" required>
-                <input type="date" placeholder="Dátum narodenia" required>
-                <input type="text" placeholder="Útvar ku ktorému sa hlásite" required>
-                <input type="text" placeholder="Email (Discord)" required>
+            <form id="policeForm">
+                <input type="text" id="meno" placeholder="Meno" required>
+                <input type="date" id="datum" placeholder="Dátum narodenia" required>
+                <input type="text" id="utvar" placeholder="Útvar ku ktorému sa hlásite" required>
+                <input type="text" id="email" placeholder="Email (Discord)" required>
                 <button type="submit">Odoslať</button>
             </form>
+            <p id="status"></p>
         </div>
     </section>
+
+    <script>
+        document.getElementById('policeForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const meno = document.getElementById('meno').value;
+            const datum = document.getElementById('datum').value;
+            const utvar = document.getElementById('utvar').value;
+            const email = document.getElementById('email').value;
+
+            const webhookURL = 'https://discord.com/api/webhooks/1389632750851461230/b5dFXc6U22bhhFfxBuqaUP-dPr6rIwA3c66vwMgsQJaeoSbM7pvvpf9yK1AysxDs9u7E'; // ← SEM VLOŽ SVOJ DISCORD WEBHOOK URL!
+
+            const data = {
+                embeds: [{
+                    title: "Nová prihláška na policajta 🚨",
+                    color: 3447003,
+                    fields: [
+                        { name: "Meno", value: meno },
+                        { name: "Dátum narodenia", value: datum },
+                        { name: "Útvar", value: utvar },
+                        { name: "Email / Discord", value: email }
+                    ],
+                    timestamp: new Date().toISOString()
+                }]
+            };
+
+            fetch(webhookURL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => {
+                if (response.ok) {
+                    document.getElementById('status').innerText = 'Úspešne odoslané ✅';
+                    document.getElementById('policeForm').reset();
+                } else {
+                    document.getElementById('status').innerText = 'Chyba pri odosielaní ❌';
+                }
+            })
+            .catch(error => {
+                console.error('Chyba:', error);
+                document.getElementById('status').innerText = 'Chyba pri odosielaní ❌';
+            });
+        });
+    </script>
 
 </body>
 </html>
