@@ -1,0 +1,167 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    color: white;
+    background-color: #121212;
+}
+
+section {
+    padding: 60px 20px;
+}
+
+.hero {
+    position: relative;
+    background-image: url('ground.jpg');
+    background-size: cover;
+    background-position: center;
+    text-align: center;
+    color: white;
+}
+
+.hero .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.hero-content {
+    position: relative;
+    max-width: 800px;
+    margin: auto;
+    padding: 80px 20px;
+    z-index: 1;
+}
+
+.hero h1 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+}
+
+.hero p {
+    font-size: 1.2em;
+    margin-bottom: 30px;
+}
+
+.button {
+    padding: 15px 25px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-size: 1.1em;
+    transition: background-color 0.3s;
+}
+
+.button:hover {
+    background-color: #0056b3;
+}
+
+/* Sekcia služby */
+.services {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    background-color: #1e1e1e;
+}
+
+.service {
+    flex: 1 1 300px;
+    background-color: #292929;
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+.service img {
+    width: 100%;
+    max-width: 350px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+.service h2 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+.service p {
+    font-size: 1em;
+    line-height: 1.5;
+}
+
+/* CTA Form sekcia */
+.cta {
+    position: relative;
+    background-image: url('jolop.jpg');
+    background-size: cover;
+    background-position: center;
+    text-align: center;
+}
+
+.cta .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.cta-content {
+    position: relative;
+    max-width: 600px;
+    margin: auto;
+    z-index: 1;
+    padding: 50px 20px;
+}
+
+.cta-content h2 {
+    font-size: 2em;
+    margin-bottom: 30px;
+}
+
+form input,
+form button {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border-radius: 6px;
+    border: none;
+    font-size: 1em;
+}
+
+form input {
+    color: #333;
+}
+
+form button {
+    background-color: #28a745;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+form button:hover {
+    background-color: #218838;
+}
+
+/* Responsivita */
+@media (max-width: 768px) {
+    .services {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .hero h1 {
+        font-size: 2em;
+    }
+
+    .cta-content h2 {
+        font-size: 1.5em;
+    }
+}
